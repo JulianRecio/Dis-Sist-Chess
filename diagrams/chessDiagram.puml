@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+interface Board{
+    - positions: Position[]
+}
+
+Position *-- Board
+class Position{
+    - verticalPosition: String
+    - horizontalPosition: Integer
+    - piece: Piece
+
+}
+
+Piece --> Color
+Piece --> PieceType
+class Piece{
+    - pieceType: PieceType
+    - color: Color
+}
+
+enum Color{
+    - White
+    - Black
+}
+
+enum PieceType{
+    - King
+    - Queen
+    - Bishop
+    - Knight
+    - Rook
+    - Pawn
+}
+
+class Game{
+    - board: Board
+    - victoryValidation: VictoryValidation
+    - checkValidation: CheckValidation
+    - surrenderValidation: SurrenderValidation
+    - movementValidation: MovementValidation
+    - player1Pieces: Piece[]
+    - player2Pieces: Piece[]
+    - turn: boolean
+    + movePiece(piece: Piece, board: Board)
+}
+
+interface victoryValidation{
+    -validateVictory
+}
+
+interface checkValidation{
+    -validateCheck
+}
+
+interface surrenderValidation{
+    +validateSurrender
+}
+
+interface movementValidation{
+    +validateMove
+}
+
+class move{
+    -initialPosition: Position
+    -finalPosition: Position
+    +calcMove
+}
+
+
+
+/'
+    --|> herencia
+    *-- composición
+    o-- agregación
+    --> asosiación
+    ..> dependencia
+    <|.. realización/implementación
+'/
+@enduml
