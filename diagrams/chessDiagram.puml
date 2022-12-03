@@ -3,21 +3,37 @@
 
 interface Board{
     - positions: Position[]
+    + isEmpty(Position positions)
+
 }
 
-Position *-- Board
+ChessBoard ..|> Board
+ChessBoard o-- Position
+class ChessBoard{
+    - positions: Position[64]
+}
+
+Position *-u- Board
+Position o-- Piece
 class Position{
     - verticalPosition: String
     - horizontalPosition: Integer
     - piece: Piece
-
+    + isEmpty()
+    + getVerticalPosition()
+    + getHorizontalPosition()
+    + getPiece()
 }
 
 Piece --> Color
 Piece --> PieceType
 class Piece{
+    - id: Integer
     - pieceType: PieceType
     - color: Color
+    + getId()
+    + getType()
+    + getColor()
 }
 
 enum Color{
@@ -32,18 +48,25 @@ enum PieceType{
     - Knight
     - Rook
     - Pawn
+    - Invalid
 }
 
+Game *-- victoryValidation
+Game *-- checkValidation
+Game *-- movementValidation
+Game *-- Piece
+Game *-- Board
 class Game{
     - board: Board
     - victoryValidation: VictoryValidation
     - checkValidation: CheckValidation
-    - surrenderValidation: SurrenderValidation
     - movementValidation: MovementValidation
     - player1Pieces: Piece[]
     - player2Pieces: Piece[]
     - turn: boolean
     + movePiece(piece: Piece, board: Board)
+    + promotePawn(pawn: Piece)
+    + attackPiece()
 }
 
 interface victoryValidation{
@@ -54,18 +77,14 @@ interface checkValidation{
     -validateCheck
 }
 
-interface surrenderValidation{
-    +validateSurrender
-}
-
 interface movementValidation{
-    +validateMove
+    -validateMove
 }
 
-class move{
+Move --> Position
+class Move{
     -initialPosition: Position
     -finalPosition: Position
-    +calcMove
 }
 
 
