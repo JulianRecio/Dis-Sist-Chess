@@ -5,7 +5,7 @@ import Interfaces.Board;
 import java.util.List;
 
 public class ChessBoard implements Board {
-    private List<Position> positions;
+    private final List<Position> positions;
 
     public ChessBoard(List<Position> positions) {
         this.positions = positions;
