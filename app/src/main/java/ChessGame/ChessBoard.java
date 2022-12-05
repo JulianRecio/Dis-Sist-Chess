@@ -17,7 +17,7 @@ public class ChessBoard implements Board {
     }
 
     @Override
-    public Position getPosition(String verticalPosition, int horizontalPosition) {
+    public Position getPosition(int verticalPosition, int horizontalPosition) {
         for(Position position : positions){
             if (verticalPosition == position.getVerticalPosition() && horizontalPosition == position.getHorizontalPosition()) return position;
         }

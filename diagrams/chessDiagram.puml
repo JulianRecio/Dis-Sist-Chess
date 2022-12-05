@@ -51,41 +51,26 @@ enum PieceType{
     - Invalid
 }
 
-Game *-- victoryValidation
-Game *-- checkValidation
-Game *-- movementValidation
+
+Game *-- Validation
 Game *-- Piece
 Game *-- Board
 class Game{
     - board: Board
-    - victoryValidation: VictoryValidation
-    - checkValidation: CheckValidation
-    - movementValidation: MovementValidation
-    - player1Pieces: Piece[]
-    - player2Pieces: Piece[]
+    - validation: Validation
+    - player1Pieces: List<Piece>
+    - player2Pieces: List<Piece>
     - turn: boolean
     + movePiece(piece: Piece, board: Board)
     + promotePawn(pawn: Piece)
     + attackPiece()
 }
 
-interface victoryValidation{
-    -validateVictory
+
+class Validation{
+    -validateMove(turn:Boolean, startingPosition: Position, finalPosition: Position)
 }
 
-interface checkValidation{
-    -validateCheck
-}
-
-interface movementValidation{
-    -validateMove
-}
-
-Move --> Position
-class Move{
-    -initialPosition: Position
-    -finalPosition: Position
-}
 
 
 

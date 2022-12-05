@@ -1,7 +1,8 @@
 package Interfaces;
 
 import ChessGame.*;
+import Exceptions.PositionWithoutPieceException;
 
 public interface MovementValidator {
-    void validateMove(Position startPosition,Position finalPosition);
+    boolean validateMove(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException;
 }

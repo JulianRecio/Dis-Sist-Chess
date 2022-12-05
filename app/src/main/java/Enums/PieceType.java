@@ -1,5 +1,5 @@
 package Enums;
 
 public enum PieceType {
-    King, Queen, Bishop, Knight, Rook, Pawn, Invalid
+    KING, QUEEN, BISHOP, KNIGHT, ROOK, PAWN, INVALID
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Board {
     List<Position> getPositions();
-    Position getPosition(String verticalPosition, int horizontalPosition);
+    Position getPosition(int verticalPosition, int horizontalPosition);
 }

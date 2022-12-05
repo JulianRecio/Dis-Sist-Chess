@@ -1,28 +1,30 @@
 package ChessGame;
 
-import java.util.NoSuchElementException;
+import Exceptions.PositionWithoutPieceException;
 
 public class Position {
-    private String verticalPosition;
-    private Integer horizontalPosition;
+    private int verticalPosition;
+    private int horizontalPosition;
     private Piece piece;
+    private boolean hasChanged;
 
-    public Position(String verticalPosition, Integer horizontalPosition) {
+    public Position(int verticalPosition, int horizontalPosition) {
         this.verticalPosition = verticalPosition;
         this.horizontalPosition = horizontalPosition;
+        hasChanged = false;
     }
 
-    public String getVerticalPosition() {
+    public int getVerticalPosition() {
         return verticalPosition;
     }
 
-    public Integer getHorizontalPosition() {
+    public int getHorizontalPosition() {
         return horizontalPosition;
     }
 
-    public Piece getPiece() {
+    public Piece getPiece() throws PositionWithoutPieceException {
         if (isEmpty()) {
-            throw new NoSuchElementException() ;
+            throw new PositionWithoutPieceException();
         }else{
             return piece;
         }
@@ -33,10 +35,14 @@ public class Position {
     }
 
     public boolean isEmpty() {
-        if (piece != null){
-            return false;
-        }else{
-            return true;
-        }
+        return piece == null;
+    }
+
+    public boolean hasChanged() {
+        return hasChanged;
+    }
+
+    public void setHasChanged(boolean hasChanged) {
+        this.hasChanged = hasChanged;
     }
 }
