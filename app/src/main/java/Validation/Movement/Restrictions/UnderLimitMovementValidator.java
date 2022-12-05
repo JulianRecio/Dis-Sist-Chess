@@ -8,13 +8,15 @@ import Validation.Movement.AbstractMovementValidator;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OneTimeUseMovementValidator extends AbstractMovementValidator {
-    public OneTimeUseMovementValidator() {
+public class UnderLimitMovementValidator extends AbstractMovementValidator {
+    private int limit;
+    public UnderLimitMovementValidator(int limit) {
         super(new HashSet<>());
+        this.limit = limit;
     }
 
     @Override
     public boolean validateMove(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException {
-        return !startPosition.hasChanged() && (startPosition.getHorizontalPosition() == startPosition.getPiece().getInitialPositionValues()[0] && startPosition.getVerticalPosition() == startPosition.getPiece().getInitialPositionValues()[1]) ;
+        return super.validateRestrictions(turn, startPosition, finalPosition) && Math.abs(finalPosition.getHorizontalPosition() - startPosition.getHorizontalPosition())<= limit && Math.abs(finalPosition.getVerticalPosition() - startPosition.getVerticalPosition()) <= limit;
     }
 }

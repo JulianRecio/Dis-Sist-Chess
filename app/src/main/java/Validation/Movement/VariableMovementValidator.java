@@ -1,6 +1,7 @@
 package Validation.Movement;
 
 import ChessGame.Position;
+import Exceptions.PositionWithoutPieceException;
 import Interfaces.MovementValidator;
 
 import java.util.HashSet;
@@ -11,12 +12,15 @@ public class VariableMovementValidator extends AbstractMovementValidator{
     private int y;
     private int limit;
 
-    public VariableMovementValidator() {
+    public VariableMovementValidator(int x ,int y, int limit) {
         super(new HashSet<>());
+        this.x = x;
+        this.y = y;
+        this.limit = limit;
     }
 
     @Override
-    public boolean validateMove(boolean turn, Position startPosition, Position finalPosition) {
+    public boolean validateMove(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException {
         int subX = Math.abs(finalPosition.getHorizontalPosition() - x);
         boolean restByX = subX % x == 0;
         boolean underHorizontalLimit = subX/x <= limit;

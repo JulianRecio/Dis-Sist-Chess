@@ -45,4 +45,8 @@ public class Position {
     public void setHasChanged(boolean hasChanged) {
         this.hasChanged = hasChanged;
     }
+
+    public void clearPiece() {
+        setPiece(null);
+    }
 }

@@ -24,7 +24,7 @@ public class AbstractMovementValidator implements MovementValidator {
         return false;
     }
 
-    public boolean validateRestrictions(boolean turn, Position startPosition, Position finalPosition){
+    public boolean validateRestrictions(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException {
         if (moves.isEmpty()) return true;
         boolean result =  true;
         for (MovementValidator move: moves) {

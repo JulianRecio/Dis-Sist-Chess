@@ -32,4 +32,17 @@ public class Piece {
         return color;
     }
 
+
+    private void setInitialX(int initialX) {
+        this.initialX = initialX;
+    }
+
+    private void setInitialY(int initialY) {
+        this.initialY = initialY;
+    }
+
+    public void setInitialPositionValues(int horizontalPosition, int verticalPosition) {
+        setInitialX(horizontalPosition);
+        setInitialY(verticalPosition);
+    }
 }
