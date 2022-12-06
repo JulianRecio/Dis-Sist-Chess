@@ -11,14 +11,14 @@ import edu.austral.dissis.chess.gui.*
 
 class ChessEngine() : GameEngine {
 
-    private val game : Game = Game(GameMode.CLASSIC);
+    private val game : Game = Game(GameMode.CAPABLANCA);
     private val adapter: Adapter = Adapter();
 
     override fun applyMove(move: Move): MoveResult {
         return try {
-            game.movePiece(move.from.row, move.from.column, move.to.row, move.to.column)
+            game.movePiece(move.from.column, move.from.row ,move.to.column, move.to.row)
             val pieces = adapter.adaptPiece(game.board.positions)
-            NewGameState(pieces, if(game.isP1turn) PlayerColor.BLACK else PlayerColor.WHITE)
+            NewGameState(pieces, if(!game.isP1turn) PlayerColor.BLACK else PlayerColor.WHITE)
         } catch (e: InvalidMoveException){
             InvalidMove(e.message.toString())
         } catch (e: PositionWithoutPieceException){
@@ -31,7 +31,8 @@ class ChessEngine() : GameEngine {
     override fun init(): InitialState {
         val pieces = adapter.adaptPiece(game.board.positions);
         val height = game.board.height;
-        return InitialState(BoardSize(height, height), pieces, PlayerColor.WHITE);
+        val width = game.board.width;
+        return InitialState(BoardSize( width, height), pieces, PlayerColor.WHITE);
     }
 
 }

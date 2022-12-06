@@ -3,8 +3,8 @@ package ChessGame;
 import Exceptions.PositionWithoutPieceException;
 
 public class Position {
-    private int verticalPosition;
-    private int horizontalPosition;
+    private final int verticalPosition;
+    private final int horizontalPosition;
     private Piece piece;
     private boolean hasChanged;
 
@@ -23,10 +23,10 @@ public class Position {
     }
 
     public Piece getPiece() throws PositionWithoutPieceException {
-        if (isEmpty()) {
-            throw new PositionWithoutPieceException();
-        }else{
+        if (piece != null) {
             return piece;
+        }else{
+            throw new PositionWithoutPieceException();
         }
     }
 

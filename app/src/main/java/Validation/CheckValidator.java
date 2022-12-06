@@ -8,8 +8,8 @@ import Interfaces.Board;
 
 public class CheckValidator {
 
-    private MoveValidator moveValidator;
-    private AvailablePathValidator availablePathValidator;
+    private final MoveValidator moveValidator;
+    private final AvailablePathValidator availablePathValidator;
 
     public CheckValidator(MoveValidator moveValidator, AvailablePathValidator availablePathValidator) {
         this.moveValidator = moveValidator;
@@ -17,20 +17,22 @@ public class CheckValidator {
     }
 
     public boolean validateMove(boolean p1turn, Board board, Position startPosition, Position finalPosition) throws PositionWithoutPieceException, InvalidMoveException {
+        Color playerColor = p1turn ? Color.WHITE : Color.BLACK;
         Color enemyColor = p1turn ? Color.BLACK : Color.WHITE;
 
-        Position kingPosition = board.getKingPosition(p1turn);
+        Position kingPosition = board.getKingPosition(playerColor);
+
         for (Position position: board.getPositions()) {
             if (!position.isEmpty() && position.getPiece().getColor() == enemyColor){
-                if (moveValidator.validate(p1turn,board, kingPosition, position) && availablePathValidator.validate(board,position, kingPosition)){
-                    board.movePiece(startPosition, finalPosition);
+                if (moveValidator.validate(p1turn, kingPosition, position) && availablePathValidator.validate(board,kingPosition, position)){
+                    board.movePiece(finalPosition, startPosition);
                     finalPosition.setPiece(finalPosition.getPiece());
-                    throw new InvalidMoveException("Check invalid");
+                    throw new InvalidMoveException("King in Check");
                 }
             }
         }
 
-        board.movePiece(startPosition,finalPosition);
+        board.movePiece(finalPosition, startPosition);
         finalPosition.setPiece(finalPosition.getPiece());
 
         return true;

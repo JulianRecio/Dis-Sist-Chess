@@ -1,14 +1,13 @@
 package Validation;
 
-import ChessGame.Game;
 import ChessGame.Position;
 import Enums.GameMode;
 import Exceptions.InvalidMoveException;
 import Exceptions.PositionWithoutPieceException;
 import Exceptions.VictoryException;
 import Interfaces.Board;
-import Validation.Movement.Victory.CheckMateValidation;
-import Validation.Movement.Victory.VictoryValidation;
+import Validation.Victory.CheckMateValidation;
+import Validation.Victory.VictoryValidation;
 
 public class Validator {
 
@@ -28,14 +27,15 @@ public class Validator {
 
 
     public boolean validateMove(boolean turn, Board board, Position startPosition, Position finalPosition) throws InvalidMoveException, PositionWithoutPieceException {
-        if(positionValidator.validate(turn,board, startPosition, finalPosition)
-                && moveValidator.validate(turn,board, startPosition, finalPosition)
-                && availablePathValidator.validate(board, startPosition, finalPosition)
-                && checkValidator.validateMove(turn,board, startPosition, finalPosition)
+        if(
+                positionValidator.validate(turn,board, startPosition, finalPosition) // funciona
+                && moveValidator.validate(turn, startPosition, finalPosition) // funciona
+                && availablePathValidator.validate(board, startPosition, finalPosition) // funciona
+                // && checkValidator.validateMove(turn,board, startPosition, finalPosition) // no funciona
         ){
             return true;
         }else{
-            throw new InvalidMoveException("move not valid");
+            return false;
         }
     }
 
@@ -48,7 +48,7 @@ public class Validator {
 
     private VictoryValidation selectVictoryConditionsForGameMode(GameMode gameMode) {
         return switch (gameMode){
-            case CLASSIC -> new CheckMateValidation(this);
+            case CLASSIC, CAPABLANCA -> new CheckMateValidation(this);
             default -> null;
         };
     }

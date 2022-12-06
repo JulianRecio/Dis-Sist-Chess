@@ -8,8 +8,6 @@ import Exceptions.VictoryException;
 import Interfaces.Board;
 import Validation.Validator;
 
-import java.awt.*;
-import java.util.List;
 
 public class Game implements Interfaces.Game {
 
@@ -24,7 +22,7 @@ public class Game implements Interfaces.Game {
     public Game(GameMode gameMode) {
         this.gameMode = gameMode;
         this.board = generateBoard(gameMode);
-        this.p1turn = true;
+        this.p1turn = true; // CAMBIAR AL TERMINAR A TRUE
         this.validator = new Validator(gameMode);
         this.pieceMover = PieceMover.getInstance();
         this.promoter = promoterType(gameMode);
@@ -37,9 +35,28 @@ public class Game implements Interfaces.Game {
         }
     }
 
+    @Override
+    public void movePiece(int startX, int startY, int finishX, int finishY) throws PositionWithoutPieceException, InvalidMoveException, VictoryException {
+        Position startPosition = board.getPosition(startX, startY);
+        Position finishPosition = board.getPosition(finishX, finishY);
+
+        if (!validator.validateMove(p1turn,board, startPosition, finishPosition)) throw new InvalidMoveException("Invalid move!");
+        pieceMover.movePiece(board, startPosition, finishPosition); // funciona
+        promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition); // funciona
+        this.p1turn = !this.p1turn; // cambiar turno funciona
+        validator.validateVictory(p1turn,board, startPosition, finishPosition); // no funciona
+    }
+
     private Board generateBoard(GameMode gameMode) {
         //Solo genera el board clasico
         switch (gameMode){
+            case CAPABLANCA -> {
+                BoardCreator boardCreator = new BoardCreator();
+                Board board = boardCreator.create(10, 8);
+                PieceCreator pieceCreator = new PieceCreator();
+                pieceCreator.insertPiecesInBoard(board, gameMode);
+                return board;
+            }
             default -> {
                 BoardCreator boardCreator = new BoardCreator();
                 Board board = boardCreator.create(8, 8);
@@ -49,19 +66,6 @@ public class Game implements Interfaces.Game {
             }
         }
     }
-
-    @Override
-    public void movePiece(int startX, int startY, int finishX, int finishY) throws PositionWithoutPieceException, InvalidMoveException, VictoryException {
-        Position startPosition = board.getPosition(startX, startY);
-        Position finishPosition = board.getPosition(finishX, finishY);
-
-        if (!validator.validateMove(p1turn,board, startPosition, finishPosition)) throw new InvalidMoveException("Invalid move");
-        pieceMover.movePiece(board, startPosition, finishPosition);
-        promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition);
-        this.p1turn = !this.p1turn;
-        validator.validateVictory(p1turn,board, startPosition, finishPosition);
-    }
-
     public Board getBoard() {
         return board;
     }

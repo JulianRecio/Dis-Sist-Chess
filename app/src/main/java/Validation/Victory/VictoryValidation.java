@@ -1,8 +1,6 @@
-package Validation.Movement.Victory;
+package Validation.Victory;
 
-import ChessGame.Game;
 import ChessGame.Position;
-import Exceptions.PositionWithoutPieceException;
 import Interfaces.Board;
 
 public interface VictoryValidation {

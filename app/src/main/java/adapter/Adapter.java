@@ -26,7 +26,7 @@ public class Adapter {
                     ChessPiece chessPiece = new ChessPiece(id,playerColor,kPosition, pieceType);
                     pieceList.add(chessPiece);
                 } catch (PositionWithoutPieceException ignored) {
-
+                    //posición sin pieza
                 }
             }
         }
@@ -41,6 +41,8 @@ public class Adapter {
             case BISHOP -> "bishop";
             case QUEEN -> "queen";
             case KING -> "king";
+            case ARCHBISHOP -> "archbishop";
+            case CHANCELLOR -> "chancellor";
             default -> "-";
         };
     }
@@ -55,9 +57,4 @@ public class Adapter {
         return kPosition;
     }
 
-    private Move adaptMove(Position start, Position finish){
-        edu.austral.dissis.chess.gui.Position kStart = adaptPosition(start);
-        edu.austral.dissis.chess.gui.Position kFinish = adaptPosition(finish);
-        return new Move(kStart, kFinish);
-    }
 }

@@ -1,6 +1,5 @@
-package Validation.Movement.Victory;
+package Validation.Victory;
 
-import ChessGame.Game;
 import ChessGame.Position;
 import Enums.Color;
 import Exceptions.InvalidMoveException;
@@ -31,10 +30,12 @@ public class CheckMateValidation implements VictoryValidation{
                                 return false;
                             }
                         } catch (InvalidMoveException ignored) {
+                            continue;
                         }
                     }
                 }
             } catch (PositionWithoutPieceException ignored) {
+                continue;
             }
         }
 

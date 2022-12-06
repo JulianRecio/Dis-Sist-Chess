@@ -13,8 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ClassicMoveSetValidator implements MoveSetValidator{
-
+public class CapablancaMoveSetValidator implements MoveSetValidator{
     @Override
     public Map<PieceType, MovementValidator> loadMoveSetValidators() {
         Map<PieceType, MovementValidator> piecesMoveSetMap = new HashMap<>();
@@ -49,6 +48,15 @@ public class ClassicMoveSetValidator implements MoveSetValidator{
 
         piecesMoveSetMap.put(PieceType.KNIGHT, knightMovement);
 
+
+        //Bishop move set
+        Set<MovementValidator> bishopMoveSet = new HashSet<>();
+
+        bishopMoveSet.add(new DiagonalValidator());
+        MovementValidator bishopMovement = new PieceMovementValidator(bishopMoveSet);
+
+        piecesMoveSetMap.put(PieceType.BISHOP, bishopMovement);
+
         //Rook move set
         Set<MovementValidator> rookMoveSet = new HashSet<>();
 
@@ -61,13 +69,26 @@ public class ClassicMoveSetValidator implements MoveSetValidator{
 
         piecesMoveSetMap.put(PieceType.ROOK, rookMovement);
 
-        //Bishop move set
-        Set<MovementValidator> bishopMoveSet = new HashSet<>();
+        //Chancellor move set
+        Set<MovementValidator> chancellorMoveSet = new HashSet<>();
 
-        bishopMoveSet.add(new DiagonalValidator());
-        MovementValidator bishopMovement = new PieceMovementValidator(bishopMoveSet);
+        chancellorMoveSet.add(new VariableMovementValidator(1,2,1));
+        chancellorMoveSet.add(new VariableMovementValidator(2,1,1));
+        chancellorMoveSet.add(new HorizontalValidator());
+        chancellorMoveSet.add(new VerticalValidator());
+        MovementValidator chancellorMovement = new PieceMovementValidator(chancellorMoveSet);
 
-        piecesMoveSetMap.put(PieceType.BISHOP, bishopMovement);
+        piecesMoveSetMap.put(PieceType.CHANCELLOR, chancellorMovement);
+
+        //Archbishop move set
+        Set<MovementValidator> archbishopMoveSet = new HashSet<>();
+
+        archbishopMoveSet.add(new DiagonalValidator());
+        archbishopMoveSet.add(new VariableMovementValidator(1,2,1));
+        archbishopMoveSet.add(new VariableMovementValidator(2,1,1));
+        MovementValidator archbishopMovement = new PieceMovementValidator(archbishopMoveSet);
+
+        piecesMoveSetMap.put(PieceType.ARCHBISHOP, archbishopMovement);
 
         //Queen move set
         Set<MovementValidator> queenMoveSet = new HashSet<>();

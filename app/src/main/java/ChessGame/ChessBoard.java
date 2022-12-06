@@ -28,10 +28,10 @@ public class ChessBoard implements Board {
     }
 
     @Override
-    public Position getKingPosition(boolean p1turn) throws PositionWithoutPieceException {
-        Color color = p1turn ? Color.WHITE: Color.BLACK;
+    public Position getKingPosition(Color color) throws PositionWithoutPieceException {
         for (Position position: positions) {
-            if (position.getPiece().getType() == PieceType.KING && position.getPiece().getColor() == color)
+            Piece piece = position.getPiece();
+            if (piece.getType() == PieceType.KING && piece.getColor() == color)
                 return position;
         }
         return null;
@@ -49,5 +49,9 @@ public class ChessBoard implements Board {
         return positions.get(positions.size()-1).getVerticalPosition();
     }
 
+    @Override
+    public int getWidth() {
+        return positions.get(positions.size()-1).getHorizontalPosition();
+    }
 
 }

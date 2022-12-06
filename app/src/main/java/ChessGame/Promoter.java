@@ -16,7 +16,6 @@ public class Promoter {
 
     public void verifyForPromotion(boolean p1turn, Board board, Position startPosition, Position finishPosition) {
         try {
-            if (finishPosition.isEmpty()) return;
             if (finishPosition.getPiece().getType() != promoted) return;
             if (p1turn){
                 if (finishPosition.getVerticalPosition() == board.getHeight()){
@@ -28,8 +27,8 @@ public class Promoter {
                 }
             }
 
-        } catch (PositionWithoutPieceException ignored) {
-
+        } catch (PositionWithoutPieceException e) {
+            return;
         }
     }
 

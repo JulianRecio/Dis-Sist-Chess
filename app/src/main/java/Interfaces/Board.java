@@ -1,6 +1,7 @@
 package Interfaces;
 
 import ChessGame.Position;
+import Enums.Color;
 import Exceptions.PositionWithoutPieceException;
 
 import java.util.List;
@@ -10,9 +11,11 @@ public interface Board {
     
     Position getPosition(int horizontalPosition, int verticalPosition);
 
-    Position getKingPosition(boolean p1turn) throws PositionWithoutPieceException;
+    Position getKingPosition(Color color) throws PositionWithoutPieceException;
 
     void movePiece(Position startPosition, Position finalPosition) throws PositionWithoutPieceException;
 
     int getHeight();
+
+    int getWidth();
 }

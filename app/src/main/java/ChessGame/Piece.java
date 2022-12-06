@@ -8,7 +8,7 @@ public class Piece {
     private int initialX;
     private int initialY;
     private PieceType type;
-    private Color color;
+    private final Color color;
 
     public Piece(PieceType type, Color color) {
         this.type = type;
