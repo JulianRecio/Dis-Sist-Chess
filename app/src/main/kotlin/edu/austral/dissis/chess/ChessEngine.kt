@@ -11,7 +11,7 @@ import edu.austral.dissis.chess.gui.*
 
 class ChessEngine() : GameEngine {
 
-    private val game : Game = Game(GameMode.CAPABLANCA);
+    private val game : Game = Game(GameMode.BERLIN);
     private val adapter: Adapter = Adapter();
 
     override fun applyMove(move: Move): MoveResult {

@@ -30,7 +30,7 @@ public class Game implements Interfaces.Game {
 
     private Promoter promoterType(GameMode gameMode) {
         switch (gameMode){
-            case CLASSIC -> { return new Promoter(PieceType.PAWN, PieceType.QUEEN);}
+            case CLASSIC, CAPABLANCA, BERLIN -> { return new Promoter(PieceType.PAWN, PieceType.QUEEN);}
             default -> { return new Promoter(PieceType.PAWN, PieceType.PAWN); }
         }
     }
@@ -55,6 +55,26 @@ public class Game implements Interfaces.Game {
                 Board board = boardCreator.create(10, 8);
                 PieceCreator pieceCreator = new PieceCreator();
                 pieceCreator.insertPiecesInBoard(board, gameMode);
+                return board;
+            }
+            case BERLIN -> {
+                BoardCreator boardCreator = new BoardCreator();
+                Board board = boardCreator.create(8, 8);
+                PieceCreator pieceCreator = new PieceCreator();
+                pieceCreator.insertPiecesInBoard(board, GameMode.CLASSIC);
+                try {
+                    board.movePiece(board.getPosition(2,8),board.getPosition( 3, 6));
+                    board.movePiece(board.getPosition(7,8),board.getPosition( 6, 6));
+                    board.movePiece(board.getPosition(5,7),board.getPosition( 5, 5));
+
+                    board.movePiece(board.getPosition(7,1),board.getPosition( 6,3));
+                    board.movePiece(board.getPosition(6,1),board.getPosition( 2, 5));
+                    board.movePiece(board.getPosition(5,2),board.getPosition( 5, 4));
+
+                } catch (PositionWithoutPieceException ignored) {
+
+                }
+
                 return board;
             }
             default -> {

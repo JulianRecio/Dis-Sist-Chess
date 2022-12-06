@@ -1,11 +1,8 @@
 package ChessGame;
 
-import Enums.Color;
-import Enums.PieceType;
 import Interfaces.Board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BoardCreator {

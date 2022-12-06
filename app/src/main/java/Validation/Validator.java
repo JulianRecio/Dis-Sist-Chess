@@ -48,7 +48,7 @@ public class Validator {
 
     private VictoryValidation selectVictoryConditionsForGameMode(GameMode gameMode) {
         return switch (gameMode){
-            case CLASSIC, CAPABLANCA -> new CheckMateValidation(this);
+            case CLASSIC, CAPABLANCA, BERLIN -> new CheckMateValidation(this);
             default -> null;
         };
     }
