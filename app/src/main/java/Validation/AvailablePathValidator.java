@@ -14,7 +14,7 @@ public class AvailablePathValidator {
 
         Position searchPosition = startPosition;
         while (!searchPosition.equals(finalPosition)){
-            searchPosition = board.getPosition(searchPosition.getVerticalPosition() + yVector, searchPosition.getHorizontalPosition() + xVector);
+            searchPosition = board.getPosition(searchPosition.getHorizontalPosition() + xVector, searchPosition.getVerticalPosition() + yVector);
             if (!searchPosition.isEmpty() && !searchPosition.equals(finalPosition)) return false;
         }
         return true;

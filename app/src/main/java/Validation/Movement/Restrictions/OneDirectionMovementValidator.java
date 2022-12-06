@@ -2,11 +2,9 @@ package Validation.Movement.Restrictions;
 
 import ChessGame.Position;
 import Exceptions.PositionWithoutPieceException;
-import Interfaces.MovementValidator;
 import Validation.Movement.AbstractMovementValidator;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public class OneDirectionMovementValidator extends AbstractMovementValidator {
 

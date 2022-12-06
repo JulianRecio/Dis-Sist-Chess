@@ -57,8 +57,8 @@ public class PieceCreator {
 
                 List<Piece> whites = Arrays.asList(whitePiecesArray);
 
-                for (int i = 0; i < whitePiecesArray.length; i++) {
-                    board.getPositions().get(i).setPiece(whitePiecesArray[i]);
+                for (int i = 0; i < whites.size(); i++) {
+                    board.getPositions().get(i).setPiece(whites.get(i));
                     whites.get(i).setInitialPositionValues(board.getPositions().get(i).getHorizontalPosition(),board.getPositions().get(i).getVerticalPosition());
                 }
 

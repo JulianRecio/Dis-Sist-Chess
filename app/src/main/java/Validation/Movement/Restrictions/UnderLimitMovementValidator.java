@@ -17,6 +17,6 @@ public class UnderLimitMovementValidator extends AbstractMovementValidator {
 
     @Override
     public boolean validateMove(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException {
-        return super.validateRestrictions(turn, startPosition, finalPosition) && Math.abs(finalPosition.getHorizontalPosition() - startPosition.getHorizontalPosition())<= limit && Math.abs(finalPosition.getVerticalPosition() - startPosition.getVerticalPosition()) <= limit;
+        return super.validateRestrictions(turn, startPosition, finalPosition) && Math.abs(finalPosition.getHorizontalPosition() - startPosition.getHorizontalPosition()) <= limit && Math.abs(finalPosition.getVerticalPosition() - startPosition.getVerticalPosition()) <= limit;
     }
 }

@@ -35,7 +35,7 @@ public class Validator {
         ){
             return true;
         }else{
-            throw new InvalidMoveException();
+            throw new InvalidMoveException("move not valid");
         }
     }
 

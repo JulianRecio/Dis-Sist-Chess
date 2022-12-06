@@ -11,9 +11,9 @@ import java.util.List;
 public class BoardCreator {
 
     public Board create(int xLimit, int yLimit){
-        List<Position> positions = new ArrayList<>();
-        for (int number = 1; number <= xLimit ; number++) {
-            for (int letter = 1; letter < yLimit; letter++) {
+        List<Position> positions = new ArrayList<>(xLimit*yLimit);
+        for (int number = 1; number <= yLimit ; number++) {
+            for (int letter = 1; letter <= xLimit; letter++) {
                 Position position = new Position(letter, number);
                 positions.add(position);
             }

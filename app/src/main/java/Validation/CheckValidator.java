@@ -25,7 +25,7 @@ public class CheckValidator {
                 if (moveValidator.validate(p1turn,board, kingPosition, position) && availablePathValidator.validate(board,position, kingPosition)){
                     board.movePiece(startPosition, finalPosition);
                     finalPosition.setPiece(finalPosition.getPiece());
-                    throw new InvalidMoveException();
+                    throw new InvalidMoveException("Check invalid");
                 }
             }
         }

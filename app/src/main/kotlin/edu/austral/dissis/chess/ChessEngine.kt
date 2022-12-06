@@ -15,16 +15,16 @@ class ChessEngine() : GameEngine {
     private val adapter: Adapter = Adapter();
 
     override fun applyMove(move: Move): MoveResult {
-        try {
-        game.movePiece(move.from.row, move.from.column, move.to.row, move.to.column)
-        val pieces = adapter.adaptPiece(game.board.positions)
-        return NewGameState(pieces, if(game.isP1turn) PlayerColor.WHITE else PlayerColor.BLACK)
+        return try {
+            game.movePiece(move.from.row, move.from.column, move.to.row, move.to.column)
+            val pieces = adapter.adaptPiece(game.board.positions)
+            NewGameState(pieces, if(game.isP1turn) PlayerColor.BLACK else PlayerColor.WHITE)
         } catch (e: InvalidMoveException){
-            return InvalidMove(e.message.toString())
+            InvalidMove(e.message.toString())
         } catch (e: PositionWithoutPieceException){
-            return InvalidMove(e.message.toString())
+            InvalidMove(e.message.toString())
         } catch (e: VictoryException){
-            return GameOver(if (game.isP1turn) PlayerColor.BLACK else PlayerColor.WHITE)
+            GameOver(if (game.isP1turn) PlayerColor.BLACK else PlayerColor.WHITE)
         }
     }
 

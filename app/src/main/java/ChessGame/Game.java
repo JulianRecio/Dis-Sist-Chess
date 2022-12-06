@@ -33,7 +33,7 @@ public class Game implements Interfaces.Game {
     private Promoter promoterType(GameMode gameMode) {
         switch (gameMode){
             case CLASSIC -> { return new Promoter(PieceType.PAWN, PieceType.QUEEN);}
-            default -> { return new Promoter(PieceType.PAWN, PieceType.PAWN);            }
+            default -> { return new Promoter(PieceType.PAWN, PieceType.PAWN); }
         }
     }
 
@@ -55,7 +55,7 @@ public class Game implements Interfaces.Game {
         Position startPosition = board.getPosition(startX, startY);
         Position finishPosition = board.getPosition(finishX, finishY);
 
-        if (!validator.validateMove(p1turn,board, startPosition, finishPosition)) throw new InvalidMoveException();
+        if (!validator.validateMove(p1turn,board, startPosition, finishPosition)) throw new InvalidMoveException("Invalid move");
         pieceMover.movePiece(board, startPosition, finishPosition);
         promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition);
         this.p1turn = !this.p1turn;

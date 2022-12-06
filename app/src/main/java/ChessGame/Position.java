@@ -8,7 +8,7 @@ public class Position {
     private Piece piece;
     private boolean hasChanged;
 
-    public Position(int verticalPosition, int horizontalPosition) {
+    public Position(int horizontalPosition, int verticalPosition) {
         this.verticalPosition = verticalPosition;
         this.horizontalPosition = horizontalPosition;
         hasChanged = false;
