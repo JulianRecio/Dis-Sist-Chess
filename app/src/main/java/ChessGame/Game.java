@@ -4,6 +4,7 @@ import Enums.GameMode;
 import Enums.PieceType;
 import Exceptions.InvalidMoveException;
 import Exceptions.PositionWithoutPieceException;
+import Exceptions.VictoryException;
 import Interfaces.Board;
 import Validation.Validator;
 
@@ -50,7 +51,7 @@ public class Game implements Interfaces.Game {
     }
 
     @Override
-    public void movePiece(int startX, int startY, int finishX, int finishY) throws PositionWithoutPieceException, InvalidMoveException {
+    public void movePiece(int startX, int startY, int finishX, int finishY) throws PositionWithoutPieceException, InvalidMoveException, VictoryException {
         Position startPosition = board.getPosition(startX, startY);
         Position finishPosition = board.getPosition(finishX, finishY);
 
@@ -65,4 +66,7 @@ public class Game implements Interfaces.Game {
         return board;
     }
 
+    public boolean isP1turn() {
+        return p1turn;
+    }
 }

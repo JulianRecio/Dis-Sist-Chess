@@ -46,7 +46,7 @@ public class ChessBoard implements Board {
 
     @Override
     public int getHeight() {
-        return positions.get(positions.size()).getVerticalPosition();
+        return positions.get(positions.size()-1).getVerticalPosition();
     }
 
 

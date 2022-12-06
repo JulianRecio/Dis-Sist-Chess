@@ -64,7 +64,7 @@ public class PieceCreator {
 
                 int j = 0;
                 for (int i = board.getPositions().size()-1; i >= board.getPositions().size()-blacks.size(); i--, j++) {
-                    board.getPositions().get(i).setPiece(blacks.get(i));
+                    board.getPositions().get(i).setPiece(blacks.get(j));
                     blacks.get(j).setInitialPositionValues(board.getPositions().get(i).getHorizontalPosition(),board.getPositions().get(i).getVerticalPosition());;
                 }
             }

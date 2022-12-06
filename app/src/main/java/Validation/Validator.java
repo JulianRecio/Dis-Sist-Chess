@@ -5,6 +5,7 @@ import ChessGame.Position;
 import Enums.GameMode;
 import Exceptions.InvalidMoveException;
 import Exceptions.PositionWithoutPieceException;
+import Exceptions.VictoryException;
 import Interfaces.Board;
 import Validation.Movement.Victory.CheckMateValidation;
 import Validation.Movement.Victory.VictoryValidation;
@@ -38,10 +39,10 @@ public class Validator {
         }
     }
 
-    public void validateVictory(boolean turn, Board board, Position startPosition, Position finalPosition){
+    public void validateVictory(boolean turn, Board board, Position startPosition, Position finalPosition) throws VictoryException {
         if (victoryValidation.validateVictory(turn, board, startPosition, finalPosition)){
             String player = turn ? "Whites" : "Blacks";
-            System.out.println(player + " win!");
+            throw new VictoryException(player + " win!");
         }
     }
 
