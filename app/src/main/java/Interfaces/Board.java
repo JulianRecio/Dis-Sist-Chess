@@ -13,4 +13,6 @@ public interface Board {
     Position getKingPosition(boolean p1turn) throws PositionWithoutPieceException;
 
     void movePiece(Position startPosition, Position finalPosition) throws PositionWithoutPieceException;
+
+    int getHeight();
 }

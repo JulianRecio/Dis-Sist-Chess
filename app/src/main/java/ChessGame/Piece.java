@@ -32,7 +32,6 @@ public class Piece {
         return color;
     }
 
-
     private void setInitialX(int initialX) {
         this.initialX = initialX;
     }
@@ -45,4 +44,9 @@ public class Piece {
         setInitialX(horizontalPosition);
         setInitialY(verticalPosition);
     }
+
+    public void setPromotion(PieceType promotion) {
+        this.type = promotion;
+    }
+
 }

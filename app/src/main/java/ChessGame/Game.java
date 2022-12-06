@@ -1,6 +1,7 @@
 package ChessGame;
 
 import Enums.GameMode;
+import Enums.PieceType;
 import Exceptions.InvalidMoveException;
 import Exceptions.PositionWithoutPieceException;
 import Interfaces.Board;
@@ -16,6 +17,7 @@ public class Game implements Interfaces.Game {
     private boolean p1turn;
     private final Validator validator;
     private PieceMover pieceMover;
+    private Promoter promoter;
 
 
     public Game(GameMode gameMode) {
@@ -23,6 +25,15 @@ public class Game implements Interfaces.Game {
         this.board = generateBoard(gameMode);
         this.p1turn = true;
         this.validator = new Validator(gameMode);
+        this.pieceMover = PieceMover.getInstance();
+        this.promoter = promoterType(gameMode);
+    }
+
+    private Promoter promoterType(GameMode gameMode) {
+        switch (gameMode){
+            case CLASSIC -> { return new Promoter(PieceType.PAWN, PieceType.QUEEN);}
+            default -> { return new Promoter(PieceType.PAWN, PieceType.PAWN);            }
+        }
     }
 
     private Board generateBoard(GameMode gameMode) {
@@ -45,7 +56,7 @@ public class Game implements Interfaces.Game {
 
         if (!validator.validateMove(p1turn,board, startPosition, finishPosition)) throw new InvalidMoveException();
         pieceMover.movePiece(board, startPosition, finishPosition);
-        // promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition);
+        promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition);
         this.p1turn = !this.p1turn;
         validator.validateVictory(p1turn,board, startPosition, finishPosition);
     }
@@ -54,7 +65,4 @@ public class Game implements Interfaces.Game {
         return board;
     }
 
-    public boolean isP1turn() {
-        return p1turn;
-    }
 }
