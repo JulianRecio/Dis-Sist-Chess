@@ -18,7 +18,7 @@ public class CheckMateValidation implements VictoryValidation{
     }
     @Override
     public boolean validateVictory(boolean turn, Board board, Position startPosition, Position finalPosition) {
-         Color color = turn ? Color.WHITE : Color.BLACK;
+        Color color = turn ? Color.WHITE : Color.BLACK;
         List<Position> boardPositions = board.getPositions();
 
         for (Position position : boardPositions) {
@@ -41,6 +41,5 @@ public class CheckMateValidation implements VictoryValidation{
 
         return true;
     }
-
 
 }

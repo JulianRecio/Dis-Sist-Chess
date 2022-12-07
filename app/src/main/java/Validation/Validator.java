@@ -31,7 +31,7 @@ public class Validator {
                 positionValidator.validate(turn,board, startPosition, finalPosition) // funciona
                 && moveValidator.validate(turn, startPosition, finalPosition) // funciona
                 && availablePathValidator.validate(board, startPosition, finalPosition) // funciona
-                // && checkValidator.validateMove(turn,board, startPosition, finalPosition) // no funciona
+                //&& checkValidator.validateMove(turn,board, startPosition, finalPosition) // no funciona
         ){
             return true;
         }else{

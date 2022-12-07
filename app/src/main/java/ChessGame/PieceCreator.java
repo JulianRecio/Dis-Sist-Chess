@@ -13,7 +13,6 @@ public class PieceCreator {
     public void insertPiecesInBoard(Board board, GameMode gameMode) {
 
         switch (gameMode){
-            //al agregar mas tipos, se agregan mas opciones al switch
             case CAPABLANCA -> {
                 Piece[] blackPiecesArray = {
                         new Piece(PieceType.ROOK, Color.BLACK),
@@ -23,7 +22,7 @@ public class PieceCreator {
                         new Piece(PieceType.KING, Color.BLACK),
                         new Piece(PieceType.QUEEN, Color.BLACK),
                         new Piece(PieceType.BISHOP, Color.BLACK),
-                        new Piece(PieceType.CHANCELLOR, Color.BLACK),
+                        new Piece(PieceType.ARCHBISHOP, Color.BLACK),
                         new Piece(PieceType.KNIGHT, Color.BLACK),
                         new Piece(PieceType.ROOK, Color.BLACK),
                         new Piece(PieceType.PAWN, Color.BLACK),
@@ -48,7 +47,7 @@ public class PieceCreator {
                         new Piece(PieceType.KING, Color.WHITE),
                         new Piece(PieceType.QUEEN, Color.WHITE),
                         new Piece(PieceType.BISHOP, Color.WHITE),
-                        new Piece(PieceType.CHANCELLOR, Color.WHITE),
+                        new Piece(PieceType.ARCHBISHOP, Color.WHITE),
                         new Piece(PieceType.KNIGHT, Color.WHITE),
                         new Piece(PieceType.ROOK, Color.WHITE),
                         new Piece(PieceType.PAWN, Color.WHITE),

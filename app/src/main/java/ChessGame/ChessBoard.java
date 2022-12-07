@@ -31,7 +31,7 @@ public class ChessBoard implements Board {
     public Position getKingPosition(Color color) throws PositionWithoutPieceException {
         for (Position position: positions) {
             Piece piece = position.getPiece();
-            if (piece.getType() == PieceType.KING && piece.getColor() == color)
+            if (piece.getColor() == color && piece.getType() == PieceType.KING)
                 return position;
         }
         return null;
