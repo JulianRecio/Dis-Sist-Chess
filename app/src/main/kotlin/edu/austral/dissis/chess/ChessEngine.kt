@@ -1,18 +1,22 @@
 package edu.austral.dissis.chess
 
 import ChessGame.Game
-import ChessGame.Position
 import Enums.GameMode
 import Exceptions.InvalidMoveException
 import Exceptions.PositionWithoutPieceException
 import Exceptions.VictoryException
 import adapter.Adapter
 import edu.austral.dissis.chess.gui.*
+import java.sql.DriverManager.println
+import java.util.*
 
 class ChessEngine() : GameEngine {
 
-    private val game : Game = Game(GameMode.BERLIN);
-    private val adapter: Adapter = Adapter();
+    private val game : Game = selectGame()
+
+
+
+    private val adapter: Adapter = Adapter()
 
     override fun applyMove(move: Move): MoveResult {
         return try {
@@ -29,10 +33,25 @@ class ChessEngine() : GameEngine {
     }
 
     override fun init(): InitialState {
-        val pieces = adapter.adaptPiece(game.board.positions);
-        val height = game.board.height;
-        val width = game.board.width;
-        return InitialState(BoardSize( width, height), pieces, PlayerColor.WHITE);
+        val pieces = adapter.adaptPiece(game.board.positions)
+        val height = game.board.height
+        val width = game.board.width
+        return InitialState(BoardSize( width, height), pieces, PlayerColor.WHITE)
     }
 
+    private fun selectGame(): Game {
+        println("Select GameMode:")
+        println("CLASSIC: 1")
+        println("CAPABLANCA: 2")
+        println("BERLIN: 3")
+
+        val scanner = Scanner(System.`in`)
+
+        return when(scanner.nextInt()){
+            1 -> Game(GameMode.CLASSIC)
+            2 -> Game(GameMode.CAPABLANCA)
+            3 -> Game(GameMode.BERLIN)
+            else -> Game(GameMode.CLASSIC)
+        }
+    }
 }
