@@ -14,8 +14,6 @@ class ChessEngine() : GameEngine {
 
     private val game : Game = selectGame()
 
-
-
     private val adapter: Adapter = Adapter()
 
     override fun applyMove(move: Move): MoveResult {

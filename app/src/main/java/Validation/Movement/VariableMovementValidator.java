@@ -21,11 +21,11 @@ public class VariableMovementValidator extends AbstractMovementValidator{
 
     @Override
     public boolean validateMove(boolean turn, Position startPosition, Position finalPosition) throws PositionWithoutPieceException {
-        int subX = Math.abs(finalPosition.getHorizontalPosition() - x);
+        int subX = Math.abs(finalPosition.getHorizontalPosition() - startPosition.getHorizontalPosition());
         boolean restByX = subX % x == 0;
         boolean underHorizontalLimit = subX/x <= limit;
 
-        int subY = Math.abs(finalPosition.getHorizontalPosition() - y);
+        int subY = Math.abs(finalPosition.getVerticalPosition() - startPosition.getVerticalPosition());
         boolean restByY = subY % y == 0;
         boolean underVerticalLimit = subY/y <= limit;
 
