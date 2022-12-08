@@ -207,7 +207,7 @@ Class PieceCreator{
     +insertPiecesInBoard(Board board, GameMode gameMode)
 }
 
-Promoter -l-o Game
+Promoter -u-o Game
 Class Promoter{
 - promoted: PieceType
 - promotion: PieceType
@@ -215,7 +215,7 @@ Class Promoter{
 + verifyForPromotion(boolean p1turn, Board board, Position startPosition, Position finishPosition)
 }
 
-Adapter -u-> Game
+Adapter --> Game
 class Adapter{
 + adaptPiece(List<Position> positions)
 - adaptPieceType(PieceType type)
@@ -223,12 +223,29 @@ class Adapter{
 - adaptPosition(Position position)
 }
 
-/'
-    --|> herencia
-    *-- composición
-    o-- agregación
-    --> asosiación
-    ..> dependencia
-    <|.. realización/implementación
-'/
+ChessEngine --> Adapter
+ChessEngine --> Game
+class ChessEngine{
+    - game: Game
+    - adapter: Adapter
+    + applyMove(move: Move)
+    + init()
+    - selectGame()
+}
+
+Game -> MoveSetValidator
+Interface MoveSetValidator{
++loadMoveSetValidators()
+}
+
+ClassicMoveSetValidator .u.|> MoveSetValidator
+Class ClassicMoveSetValidator{
++loadMoveSetValidators()
+}
+
+CapablancaMoveSetValidator .u.|> MoveSetValidator
+Class CapablancaMoveSetValidator{
++loadMoveSetValidators()
+}
+
 @enduml

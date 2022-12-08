@@ -1,7 +1,6 @@
-package Validation.Movement.Moveset;
+package Interfaces;
 
 import Enums.PieceType;
-import Interfaces.MovementValidator;
 
 import java.util.Map;
 

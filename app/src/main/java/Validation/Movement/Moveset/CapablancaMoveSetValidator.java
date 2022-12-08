@@ -1,6 +1,7 @@
 package Validation.Movement.Moveset;
 
 import Enums.PieceType;
+import Interfaces.MoveSetValidator;
 import Interfaces.MovementValidator;
 import Validation.Movement.*;
 import Validation.Movement.Restrictions.CaptureNotAllowedValidator;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CapablancaMoveSetValidator implements MoveSetValidator{
+public class CapablancaMoveSetValidator implements MoveSetValidator {
     @Override
     public Map<PieceType, MovementValidator> loadMoveSetValidators() {
         Map<PieceType, MovementValidator> piecesMoveSetMap = new HashMap<>();

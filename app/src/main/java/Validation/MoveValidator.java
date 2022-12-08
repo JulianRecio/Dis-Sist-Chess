@@ -7,7 +7,7 @@ import Exceptions.PositionWithoutPieceException;
 import Interfaces.MovementValidator;
 import Validation.Movement.Moveset.CapablancaMoveSetValidator;
 import Validation.Movement.Moveset.ClassicMoveSetValidator;
-import Validation.Movement.Moveset.MoveSetValidator;
+import Interfaces.MoveSetValidator;
 
 import java.util.Map;
 
