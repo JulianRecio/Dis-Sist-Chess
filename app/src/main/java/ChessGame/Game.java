@@ -42,7 +42,7 @@ public class Game implements Interfaces.Game {
         pieceMover.movePiece(board, startPosition, finishPosition); // funciona
         promoter.verifyForPromotion(p1turn,board, startPosition, finishPosition); // funciona
         this.p1turn = !this.p1turn; // cambiar turno funciona
-        validator.validateVictory(p1turn,board, startPosition, finishPosition); // no funciona
+        validator.validateVictory(p1turn,board, startPosition, finishPosition);
     }
 
     private Board generateBoard(GameMode gameMode) {
