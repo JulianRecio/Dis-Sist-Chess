@@ -6,7 +6,6 @@ import Enums.Color;
 import Enums.PieceType;
 import Exceptions.PositionWithoutPieceException;
 import edu.austral.dissis.chess.gui.ChessPiece;
-import edu.austral.dissis.chess.gui.Move;
 import edu.austral.dissis.chess.gui.PlayerColor;
 
 import java.util.ArrayList;

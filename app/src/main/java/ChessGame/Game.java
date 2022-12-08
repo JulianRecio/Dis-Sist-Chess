@@ -11,7 +11,6 @@ import Validation.Validator;
 
 public class Game implements Interfaces.Game {
 
-    private final GameMode gameMode;
     private final Board board;
     private boolean p1turn;
     private final Validator validator;
@@ -20,7 +19,6 @@ public class Game implements Interfaces.Game {
 
 
     public Game(GameMode gameMode) {
-        this.gameMode = gameMode;
         this.board = generateBoard(gameMode);
         this.p1turn = true; // CAMBIAR AL TERMINAR A TRUE
         this.validator = new Validator(gameMode);

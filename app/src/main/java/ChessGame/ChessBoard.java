@@ -42,6 +42,9 @@ public class ChessBoard implements Board {
         Piece piece = startPosition.getPiece();
         startPosition.clearPiece();
         finalPosition.setPiece(piece);
+        if (!startPosition.hasChanged()){
+            startPosition.setHasChanged(true);
+        }
     }
 
     @Override

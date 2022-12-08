@@ -2,7 +2,6 @@ package ChessGame;
 
 import Enums.Color;
 import Enums.PieceType;
-import Interfaces.Board;
 
 public class Piece {
     private int initialX;
@@ -13,11 +12,6 @@ public class Piece {
     public Piece(PieceType type, Color color) {
         this.type = type;
         this.color = color;
-    }
-
-   public void setInitialPositionValues(Position initialPosition) {
-        this.initialX = initialPosition.getHorizontalPosition();
-        this.initialY = initialPosition.getVerticalPosition();
     }
 
     public int[] getInitialPositionValues() {

@@ -1,16 +1,41 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+
+Game *-l- Validator
+Game *-- Piece
+Game *-- Board
+class Game{
+    - board: Board
+    - validator: Validator
+    - turn: boolean
+    - pieceMover: pieceMover
+    - promoter: promoter
+    + Game(GameMode gameMode)
+    + movePiece(int startX, int startY, int finishX, int finishY)
+    + getBoard()
+    + isP1Turn
+    - generateBoard(GameMode gameMode)
+    - promoterType(GameMode gameMode)
+}
+
+
 interface Board{
-    - positions: Position[]
-    + isEmpty(Position positions)
+    + isEmpty(int horizontalPosition,int verticalPosition)
+    + getKingPosition(Color color)
+    + movePiece(Position startPosition, Position finalPosition)
 
 }
 
 ChessBoard ..|> Board
 ChessBoard o-- Position
 class ChessBoard{
-    - positions: Position[64]
+    - positions: List<Positions>
+    + isEmpty(int horizontalPosition,int verticalPosition)
+    + getKingPosition(Color color)
+    + movePiece(Position startPosition, Position finalPosition)
+    + getHeight()
+    + getWidth()
 }
 
 Position *-u- Board
@@ -28,12 +53,17 @@ class Position{
 Piece --> Color
 Piece --> PieceType
 class Piece{
-    - id: Integer
+    - int: initialX
+    - int: initialY
     - pieceType: PieceType
     - color: Color
     + getId()
     + getType()
     + getColor()
+    + getInitilaPositionValues()
+    + setInitialX(int initialX)
+    + setInitialY(int initialY)
+
 }
 
 enum Color{
@@ -52,27 +82,146 @@ enum PieceType{
 }
 
 
-Game *-- Validation
-Game *-- Piece
-Game *-- Board
-class Game{
-    - board: Board
-    - validation: Validation
-    - player1Pieces: List<Piece>
-    - player2Pieces: List<Piece>
-    - turn: boolean
-    + movePiece(piece: Piece, board: Board)
-    + promotePawn(pawn: Piece)
-    + attackPiece()
+
+class Validator{
+    - MoveValidator moveValidator;
+    - PositionValidator positionValidator;
+    - AvailablePathValidator availablePathValidator
+    - CheckValidator checkValidator;
+    - VictoryValidation victoryValidation;
+    + validateMove(turn:Boolean, startingPosition: Position, finalPosition: Position)
+    + validateVictory(turn:Boolean, startingPosition: Position, finalPosition: Position)
+    - selectVictoryValidation(GameMode gameMode)
+
+}
+
+AvailablePathValidator -u-* Validator
+class AvailablePathValidator{
++ validate(Board board, Position startPosition, Position finalPosition)
+}
+
+MoveValidator -u-* Validator
+class MoveValidator{
+- pieceMovements: Map<PieceType, MovementValidator>
++ MoveValidator(GameMode gameMode)
++ validate(Board board, Position startPosition, Position finalPosition)
+}
+
+PositionValidator -u-* Validator
+class PositionValidator{
++ validate(Board board, Position startPosition, Position finalPosition)
+}
+
+CheckValidator -u-* Validator
+class CheckValidator{
+- moveValidator: MoveValidator
+- availablePathValidator: AvailablePathValidator
++ validate(Board board, Position startPosition, Position finalPosition)
+
+}
+
+VictoryValidation -u-* Validator
+interface VictoryValidation{
++ validateVictory(Board board, Position startPosition, Position finalPosition)
 }
 
 
-class Validation{
-    -validateMove(turn:Boolean, startingPosition: Position, finalPosition: Position)
+MovementValidator -u-* MoveValidator
+interface MovementValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+AbstractMovementValidator .u.|> MovementValidator
+class AbstractMovementValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+HorizontalValidator -u-|> AbstractMovementValidator
+class HorizontalValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+VerticalValidator -u-|> AbstractMovementValidator
+class VerticalValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+DiagonalValidator -u-|> AbstractMovementValidator
+class DiagonalValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+CaptureMovementValidator -u-|> AbstractMovementValidator
+class CaptureMovementValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+VariableMovementValidator -u-|> AbstractMovementValidator
+class VariableMovementValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+CastlingValidator -u-|> AbstractMovementValidator
+class CastlingValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+CaptureNotAllowedValidator -u--|> AbstractMovementValidator
+class CaptureNotAllowedValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+OneDirectionValidator -u--|> AbstractMovementValidator
+class OneDirectionValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+OneTimeUseMovementValidator -u--|> AbstractMovementValidator
+class OneTimeUseMovementValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
+}
+
+UnderLimitValidator -u--|> AbstractMovementValidator
+class UnderLimitValidator{
+ +validateMove(Board board, Position startPosition, Position finalPosition)
 }
 
 
+PieceMovementValidator -r-|> AbstractMovementValidator
+class PieceMovementValidator{
+ +PieceMovementValidator(Set<MovementValidator>)
+}
 
+CheckMateValidator -u.> VictoryValidation
+class CheckMateValidator{
+ +validateVictory(Board board, Position startPosition, Position finalPosition)
+}
+
+BoardCreator --o Game
+Class BoardCreator{
+    +create(int x, int y)
+}
+
+PieceCreator --o Game
+Class PieceCreator{
+    +insertPiecesInBoard(Board board, GameMode gameMode)
+}
+
+Promoter -l-o Game
+Class Promoter{
+- promoted: PieceType
+- promotion: PieceType
++ Promoter(PieceType promoted, PieceType promotion)
++ verifyForPromotion(boolean p1turn, Board board, Position startPosition, Position finishPosition)
+}
+
+Adapter -u-> Game
+class Adapter{
++ adaptPiece(List<Position> positions)
+- adaptPieceType(PieceType type)
+- adaptColor(Color color)
+- adaptPosition(Position position)
+}
 
 /'
     --|> herencia
